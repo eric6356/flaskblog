@@ -1,13 +1,40 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}Blog{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-{% if current_user.is_authenticated() %}
-<h1>Hi, {{ current_user.username }}</h1>
-{% else %}
-<h1>NO!</h1>
-{% endif %}
+    {% if current_user.is_authenticated() %}
+    <h1>所思何物，所忆何人？</h1>
+    {% else %}
+    <h1>给时光以生命</h1>
+    {% endif %}
 </div>
+
+<ul class="posts">
+    {% for post in posts %}
+    <li class="post">
+        <div class="post-title"><h2>{{ post.title }}</h2></div>
+        <div class="post-body">{{ post.body }}</div>
+        <div class="post-date">
+            {{ moment(post.timestamp).format('YYYY-MM-DD HH:MM, ') }}
+            {{ moment(post.timestamp).fromNow(refresh=True) }}
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% if current_user.is_authenticated() %}
+    <form class="form form-horizontal" method="post" role="form">
+        {{ form.hidden_tag() }}
+        {{ wtf.form_errors(form, hiddens="only") }}
+
+        {{ wtf.form_field(form.title) }}
+        {{ wtf.form_field(form.body) }}
+        {{ wtf.form_field(form.submit) }}
+    </form>
+
+
+{% endif %}
 {% endblock %}

@@ -1,16 +1,28 @@
 from flask import render_template, session, redirect, url_for, current_app, flash, request
 from flask.ext.login import login_user, current_user, login_required, logout_user
-from .. import db
+from ..models import Permission, Role, User, Post
 from ..models import User
 from ..email import send_email
 from . import main
-from .forms import NameForm, LoginForm
+from .. import db
+from .forms import NameForm, LoginForm, PostForm
 
 
-@main.route('/')  # , methods=['GET', 'POST'])
+@main.route('/', methods=['GET', 'POST'])
 def index():
     # print current_user
-    return render_template('index.html')
+    form = PostForm()
+    if current_user.can(Permission.WRITE_BLOG) and form.validate_on_submit():
+        post = Post(title=form.title.data,
+                    body=form.body.data,
+                    author=current_user._get_current_object())
+        # print post.__dict__
+        db.session.add(post)
+        db.session.commit()
+        flash('Post success!')
+        return redirect(url_for('.index'))
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', posts=posts, form=form)
 
 @main.route('/tech')
 def tech():
