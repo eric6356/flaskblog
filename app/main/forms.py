@@ -1,6 +1,6 @@
 # coding:utf-8
 from flask.ext.wtf import Form
-from wtforms import StringField, SubmitField, PasswordField, BooleanField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, RadioField
 from wtforms.validators import Required, Length, Email
 from flask.ext.pagedown.fields import PageDownField
 
@@ -8,6 +8,7 @@ from flask.ext.pagedown.fields import PageDownField
 class PostForm(Form):
     title = StringField(u'标题', validators=[Required()])
     body = PageDownField(u"正文", validators=[Required()])
+    tol = RadioField('tol', choices=[('tech', 'Tech'), ('life', 'Life')])
     submit = SubmitField('Submit')
 
 

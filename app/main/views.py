@@ -10,19 +10,19 @@ from .forms import NameForm, LoginForm, PostForm
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    # print current_user
     form = PostForm()
     if current_user.can(Permission.WRITE_BLOG) and form.validate_on_submit():
         post = Post(title=form.title.data,
                     body=form.body.data,
                     author=current_user._get_current_object())
-        # print post.__dict__
         db.session.add(post)
         db.session.commit()
         flash('Post success!')
         return redirect(url_for('.index'))
     posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('index.html', posts=posts, form=form, preview=True)
+    for p in posts:
+        p.body_preview = p.body if len(p.body) <= 100 else p.body[:100] + '...'
+    return render_template('index.html', posts=posts, form=form)
 
 @main.route('/post/<int:id>')
 def post(id):
@@ -40,21 +40,25 @@ def edit(id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.body = form.body.data
+        post.tol = form.tol.data
         db.session.add(post)
         flash('The post has been updated.')
         return redirect(url_for('.post', id=post.id))
     form.body.data = post.body
     form.title.data = post.title
+    form.tol.data = post.tol
     return render_template('edit_post.html', form=form)
 
 @main.route('/tech')
 def tech():
-    return render_template('tech.html')
+    posts = Post.query.order_by(Post.timestamp.desc()).filter_by(tol='tech')
+    return render_template('tech.html', posts=posts)
 
 
 @main.route('/life')
 def life():
-    return render_template('life.html')
+    posts = Post.query.order_by(Post.timestamp.desc()).filter_by(tol='life')
+    return render_template('life.html', posts=posts)
 
 
 @main.route('/login', methods=['GET', 'POST'])
