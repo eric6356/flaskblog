@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, current_app, flash, request
+from flask import render_template, session, redirect, url_for, abort, flash, request
 from flask.ext.login import login_user, current_user, login_required, logout_user
 from ..models import Permission, Role, User, Post
 from ..models import User
@@ -22,7 +22,30 @@ def index():
         flash('Post success!')
         return redirect(url_for('.index'))
     posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('index.html', posts=posts, form=form)
+    return render_template('index.html', posts=posts, form=form, preview=True)
+
+@main.route('/post/<int:id>')
+def post(id):
+    post = Post.query.get_or_404(id)
+    return render_template('post.html', posts=(post,))
+
+
+@main.route('/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit(id):
+    post = Post.query.get_or_404(id)
+    if current_user != post.author and not current_user.can(Permission.ADMINISTER):
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.body = form.body.data
+        db.session.add(post)
+        flash('The post has been updated.')
+        return redirect(url_for('.post', id=post.id))
+    form.body.data = post.body
+    form.title.data = post.title
+    return render_template('edit_post.html', form=form)
 
 @main.route('/tech')
 def tech():
