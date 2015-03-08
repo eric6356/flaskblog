@@ -14,6 +14,7 @@ def index():
     if current_user.can(Permission.WRITE_BLOG) and form.validate_on_submit():
         post = Post(title=form.title.data,
                     body=form.body.data,
+                    tol=form.tol.data,
                     author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
@@ -42,6 +43,7 @@ def edit(id):
         post.body = form.body.data
         post.tol = form.tol.data
         db.session.add(post)
+        db.session.commit()
         flash('The post has been updated.')
         return redirect(url_for('.post', id=post.id))
     form.body.data = post.body
