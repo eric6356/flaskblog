@@ -65,7 +65,6 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             flash("Logged in successfully.")
-            print current_user.username
             return redirect(request.args.get('next') or url_for('main.index'))
         flash('Invalid username or password.')
     return render_template('login.html', form=form)
