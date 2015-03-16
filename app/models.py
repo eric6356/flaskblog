@@ -125,7 +125,7 @@ class Post(db.Model):
     @property
     def body_preview(self):
         res = bleach.clean(self.body_html, tags=[], strip=True)
-        return res # if len(res) < 100 else res[:100] + '...'
+        return res if len(res) < 200 else res[:200] + '...'
 
     @staticmethod
     def generate_fake(count=10):
