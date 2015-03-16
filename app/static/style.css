@@ -21,9 +21,6 @@ ul.posts li.post {
     padding: 8px;
     border-bottom: 1px solid #e0e0e0;
 }
-ul.posts li.post:hover {
-    background-color: #f0f0f0;
-}
 div.post-title {
     font-size: 24px;
 }
