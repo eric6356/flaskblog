@@ -2,11 +2,11 @@
     {% for post in posts %}
     <li class="post">
         <div class="post-content">
-            <div class="post-title"><h2>
+            <div class="post-title">
                 <a href="{{ url_for('.post', id=post.id) }}">
                     {{ post.title }}
                 </a>
-            </h2></div>
+            </div>
 
             <div class="post-date">
                 {{ moment(post.timestamp).format('YYYY-MM-DD HH:MM, ') }}

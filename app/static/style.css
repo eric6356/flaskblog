@@ -1,3 +1,9 @@
+body {
+    font-family: "Microsoft YaHei" ! important;
+}
+h1 {
+    font-family: "Microsoft YaHei" ! important;
+}
 .profile-thumbnail {
     position: absolute;
 }
@@ -18,8 +24,8 @@ ul.posts li.post {
 ul.posts li.post:hover {
     background-color: #f0f0f0;
 }
-div.post-date {
-    float: right;
+div.post-title {
+    font-size: 24px;
 }
 div.post-author {
     font-weight: bold;
