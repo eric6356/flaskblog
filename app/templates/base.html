@@ -6,10 +6,17 @@
 {{ super() }}
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="stylesheet" type="text/css" href="{{ url_for("static", filename='style.css') }}"
 {% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
+{% set navigation_bar = [
+    ('/life', 'life', 'Life'),
+    ('/tech', 'tech', 'Tech'),
+    ('http://pydoc.hezj.xyz', 'pydoc', 'PyDoc')
+] -%}
+{% set active_page = active_page|default('index') -%}
+<div class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,13 +29,11 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('main.tech') }}">Tech</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('main.life') }}">Life</a></li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li><a href="http://pydoc.hezj.xyz">PyDoc</a></li>
+                {% for href, id, caption in navigation_bar %}
+                  <li{% if id == active_page %} class="active" {% endif %}>
+                  <a href="{{ href|e }}">{{ caption|e }}
+                  </a></li>
+                {% endfor %}
             </ul>
         </div>
     </div>
