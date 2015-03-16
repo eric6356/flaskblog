@@ -108,10 +108,24 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128))
     body = db.Column(db.Text)
-    body_html = db.Column(db.Text)
+    status = db.Column(db.Integer, default=1)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tol = db.Column(db.String(20))
+
+    @property
+    def body_html(self):
+        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
+                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
+                        'h1', 'h2', 'h3', 'p', 'del', 'ins']
+        return bleach.linkify(bleach.clean(
+            markdown(self.body, ['del_ins'], output_format='html'),
+            tags=allowed_tags, strip=True))
+
+    @property
+    def body_preview(self):
+        res = bleach.clean(self.body_html, tags=[], strip=True)
+        return res # if len(res) < 100 else res[:100] + '...'
 
     @staticmethod
     def generate_fake(count=10):
@@ -141,5 +155,3 @@ class Post(db.Model):
 
     def __repr__(self):
         return '<Post %r>' % self.title
-
-db.event.listen(Post.body, 'set', Post.on_changed_body)

@@ -13,7 +13,11 @@
                 {{ moment(post.timestamp).fromNow(refresh=True) }}
             </div>
             <div class="post-body">
-                {% if post.body_html %}
+                {% if preview %}
+                    {% if post.body_preview %}
+                        {{ post.body_preview }}
+                    {% endif %}
+                {% elif post.body_html %}
                     {{ post.body_html | safe }}
                 {% else %}
                     {{ post.body }}
@@ -23,6 +27,9 @@
                 {% if current_user == post.author %}
                 <a href="{{ url_for('.edit', id=post.id) }}">
                     <span class="label label-primary">Edit</span>
+                </a>
+                <a href="javascript:if(confirm('are you sure to delete?'))location={{ url_for('.delete', id=post.id) }}">
+                    <span class="label label-danger">Delete</span>
                 </a>
                 {% endif %}
             </div>

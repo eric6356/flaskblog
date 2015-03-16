@@ -42,7 +42,7 @@ def upgrade():
                     sa.Column('id', sa.Integer(), nullable=False),
                     sa.Column('title', sa.String(128), nullable=True),
                     sa.Column('body', sa.Text(), nullable=True),
-                    sa.Column('body_html', sa.Text(), nullable=True),
+                    sa.Column('status', sa.Integer(), nullable=True),
                     sa.Column('timestamp', sa.DateTime(), nullable=True),
                     sa.Column('tol', sa.String(20), nullable=True),
                     sa.Column('author_id', sa.Integer(), nullable=True),

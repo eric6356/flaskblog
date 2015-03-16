@@ -12,8 +12,9 @@
     {% endif %}
 </div>
 
-{% include '_posts.html' %}
-
+{% with preview=True %}
+    {% include '_posts.html' %}
+{% endwith %}
 
 {% if current_user.is_authenticated() %}
     <form class="form form-horizontal" method="post" role="form">

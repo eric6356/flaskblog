@@ -5,6 +5,8 @@
 
 {% block page_content %}
 
-{% include '_posts.html' %}
+{% with preview = True %}
+    {% include '_posts.html' %}
+{% endwith %}
 
 {% endblock %}

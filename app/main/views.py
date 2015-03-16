@@ -21,9 +21,7 @@ def index():
         flash('Post success!')
         return redirect(url_for('.index'))
     posts = Post.query.order_by(Post.timestamp.desc()).all()
-    for p in posts:
-        p.body_preview = p.body if len(p.body) <= 100 else p.body[:100] + '...'
-    return render_template('index.html', posts=posts, form=form)
+    return render_template('index.html', posts=posts, form=form, preview=True)
 
 @main.route('/post/<int:id>')
 def post(id):
@@ -50,6 +48,13 @@ def edit(id):
     form.title.data = post.title
     form.tol.data = post.tol
     return render_template('edit_post.html', form=form)
+
+@main.route('/delete/<int:id>')
+@login_required
+def delete(id):
+    post = Post.query.get_or_404(id)
+
+    return 'hello world'
 
 @main.route('/tech')
 def tech():
