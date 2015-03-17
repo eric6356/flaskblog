@@ -15,6 +15,7 @@ f = function() {
     var preview = document.createElement('div');
     preview.className = 'flask-pagedown-preview col-md-6';
     textarea.style.cssText +=";overflow:hidden;";
+    textarea.style.minHeight="200px";
     textarea.parentNode.parentNode.insertBefore(preview, textarea.parentNode.nextSibling);
     textarea.onkeyup = function() { preview.innerHTML = flask_pagedown_converter(textarea.value); }
     textarea.onkeyup.call(textarea);

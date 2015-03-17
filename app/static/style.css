@@ -47,6 +47,7 @@ div.flask-pagedown-preview {
     margin: 0px 0px 10px 0px;
     border: 1px solid #e0e0e0;
     padding: 4px;
+    min-height: 200px;
 }
 #pagedown-input-col {
     padding-left: 0;
