@@ -11,9 +11,9 @@ class Config:
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
-    FLASKY_MAIL_SENDER = MAIL_USERNAME + '@qq.com'
-    FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
+    BLOG_MAIL_SUBJECT_PREFIX = '[Blog]'
+    BLOG_MAIL_SENDER = MAIL_USERNAME + '@qq.com'
+    BLOG_ADMIN = os.environ.get('BLOG_ADMIN')
 
     @staticmethod
     def init_app(app):

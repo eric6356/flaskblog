@@ -1,7 +1,7 @@
 body {
     font-family: "Microsoft YaHei" ! important;
 }
-h1 {
+h1, h2, h3, h4 {
     font-family: "Microsoft YaHei" ! important;
 }
 .profile-thumbnail {
@@ -59,23 +59,5 @@ div.flask-pagedown-preview h2 {
     font-size: 130%;
 }
 div.flask-pagedown-preview h3 {
-    font-size: 120%;
-}
-.post-body h1 {
-    font-size: 140%;
-}
-.post-body h2 {
-    font-size: 130%;
-}
-.post-body h3 {
-    font-size: 120%;
-}
-.post-title h1 {
-    font-size: 140%;
-}
-.post-title h2 {
-    font-size: 130%;
-}
-.post-title h3 {
     font-size: 120%;
 }

@@ -54,7 +54,7 @@ class User(UserMixin, db.Model):
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
         if self.role is None:
-            if self.email == current_app.config['FLASKY_ADMIN']:
+            if self.email == current_app.config['BLOG_ADMIN']:
                 self.role = Role.query.filter_by(permissions=0xff).first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
@@ -72,7 +72,7 @@ class User(UserMixin, db.Model):
 
     @staticmethod
     def add_admin():
-        u = User(username='admin', email=current_app.config['FLASKY_MAIL_SENDER'], password='admin')
+        u = User(username='admin', email=current_app.config['BLOG_MAIL_SENDER'], password='admin')
         db.session.add(u)
         db.session.commit()
 
@@ -118,9 +118,9 @@ class Post(db.Model):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
                         'h1', 'h2', 'h3', 'p', 'del', 'ins']
-        return bleach.linkify(bleach.clean(
+        return bleach.clean(
             markdown(self.body, ['del_ins'], output_format='html'),
-            tags=allowed_tags, strip=True))
+            tags=allowed_tags, strip=True)
 
     @property
     def body_preview(self):
