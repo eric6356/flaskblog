@@ -28,9 +28,6 @@
                 <a href="{{ url_for('.edit', id=post.id) }}">
                     <span class="label label-primary">Edit</span>
                 </a>
-                <a href="javascript:if(confirm('are you sure to delete?'))location={{ url_for('.delete', id=post.id) }}">
-                    <span class="label label-danger">Delete</span>
-                </a>
                 {% endif %}
             </div>
         </div>

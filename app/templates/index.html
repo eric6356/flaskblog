@@ -17,15 +17,9 @@
 {% endwith %}
 
 {% if current_user.is_authenticated() %}
-    <form class="form form-horizontal" method="post" role="form">
-        {{ form.hidden_tag() }}
-        {{ wtf.form_errors(form, hiddens="only") }}
-        {{ wtf.form_field(form.title, placeholder='所思何物，所忆何人？') }}
-        {{ wtf.form_field(form.body, rows=10) }}
-        {{ wtf.form_field(form.tol) }}
-        {{ wtf.form_field(form.submit) }}
-    </form>
-
+    {% with wtf = wtf  %}
+        {% include '_edit.html' %}
+    {% endwith %}
 
 {% endif %}
 {% endblock %}

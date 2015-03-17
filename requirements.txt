@@ -1,6 +1,8 @@
 bleach
 markdown
 Flask==0.10.1
+Flask-login
+Flask-PageDown
 Flask-Bootstrap==3.0.3.1
 Flask-Mail==0.9.0
 Flask-Migrate==1.1.0

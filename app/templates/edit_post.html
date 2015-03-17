@@ -7,16 +7,9 @@
 <div class="page-header">
     <h1>Edit Post</h1>
 </div>
-<div>
-    <form class="form form-horizontal" method="post" role="form">
-        {{ form.hidden_tag() }}
-        {{ wtf.form_errors(form, hiddens="only") }}
-        {{ wtf.form_field(form.title, placeholder='所思何物，所忆何人？') }}
-        {{ wtf.form_field(form.body, rows=10) }}
-        {{ wtf.form_field(form.tol) }}
-        {{ wtf.form_field(form.submit) }}
-    </form>
-</div>
+    {% with wtf = wtf  %}
+        {% include '_edit.html' %}
+    {% endwith %}
 {% endblock %}
 
 {% block scripts %}
