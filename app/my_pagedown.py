@@ -1,6 +1,5 @@
-from flask.ext.pagedown.fields import PageDown
-from wtforms.fields import TextAreaField
 from wtforms.widgets import HTMLString, TextArea
+from wtforms.fields import TextAreaField
 
 pagedown_pre_html = '''
 <div class="flask-pagedown">
@@ -14,12 +13,12 @@ f = function() {
         flask_pagedown_converter = Markdown.getSanitizingConverter().makeHtml;
     var textarea = document.getElementById("flask-pagedown-%s");
     var preview = document.createElement('div');
-    preview.className = 'flask-pagedown-preview';
-    textarea.parentNode.insertBefore(preview, textarea.nextSibling);
+    preview.className = 'flask-pagedown-preview col-md-6';
+    textarea.parentNode.parentNode.insertBefore(preview, textarea.parentNode.nextSibling);
     textarea.onkeyup = function() { preview.innerHTML = flask_pagedown_converter(textarea.value); }
     textarea.onkeyup.call(textarea);
 }
-if (document.readyState === 'complete')
+if (document.readyState === 'complete') 
     f();
 else if (window.addEventListener)
     window.addEventListener("load", f, false);
@@ -30,13 +29,13 @@ else
 </script>
 '''
 
-
-class myPageDown(PageDown):
-    pass
-    # def __call__(self, field, **kwargs):
-    #     html = super(myPageDown, self).__call__(field, id = 'flask-pagedown-' + field.name, class_ = 'flask-pagedown-input', **kwargs)
-    #     return HTMLString(pagedown_pre_html + html + pagedown_post_html % field.name)
+class PageDown(TextArea):
+    def __call__(self, field, **kwargs):
+        html = super(PageDown, self).__call__(field, id = 'flask-pagedown-' + field.name, class_ = 'flask-pagedown-input', **kwargs)
+        html = '<div class="col-md-6" id="pagedown-input-col">' + html + '</div>'
+        # print pagedown_pre_html + html + pagedown_post_html % field.name
+        return HTMLString(pagedown_pre_html + html + pagedown_post_html % field.name)
 
 
 class PageDownField(TextAreaField):
-    wiget = myPageDown()
+    widget = PageDown()
