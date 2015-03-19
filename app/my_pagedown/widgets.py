@@ -1,5 +1,4 @@
 from wtforms.widgets import HTMLString, TextArea
-from wtforms.fields import TextAreaField
 
 pagedown_pre_html = '''
 <div class="flask-pagedown">
@@ -71,6 +70,3 @@ class PageDown(TextArea):
         # print pagedown_pre_html + html + pagedown_post_html % field.name
         return HTMLString(pagedown_pre_html + html + pagedown_post_html % (field.name, field.name))
 
-
-class PageDownField(TextAreaField):
-    widget = PageDown()

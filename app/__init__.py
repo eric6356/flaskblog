@@ -4,7 +4,7 @@ from flask.ext.mail import Mail
 from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
-from flask.ext.pagedown import PageDown
+from app.my_pagedown import PageDown
 from config import config
 
 bootstrap = Bootstrap()
