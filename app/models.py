@@ -71,9 +71,10 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     @staticmethod
-    def add_admin():
-        u = User(username='admin', email=current_app.config['BLOG_MAIL_SENDER'], password='admin')
-        db.session.add(u)
+    def add_user():
+        u_admin = User(username='admin', email=current_app.config['BLOG_MAIL_SENDER'], password='admin')
+        u_guest = User(username='guest', email='guest@hezj.xyz', password='guest')
+        db.session.add_all((u_admin, u_guest))
         db.session.commit()
 
     def can(self, permissions):
