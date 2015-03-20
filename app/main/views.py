@@ -16,9 +16,6 @@ def index():
                     category=form.category.data,
                     status=int(form.status.data),
                     author=current_user._get_current_object())
-        print current_user
-        print post.author
-        print post.title
         post.save()
         flash('Post success!')
         return redirect(url_for('.index'))
