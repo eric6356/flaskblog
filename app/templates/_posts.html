@@ -24,7 +24,7 @@
                 {% endif %}
             </div>
             <div class="post-footer">
-                {% if current_user == post.author %}
+                {% if current_user.id == post.author.id %}
                 <a href="{{ url_for('.edit', id=post.id) }}">
                     <span class="label label-primary">Edit</span>
                 </a>
