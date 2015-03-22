@@ -28,7 +28,7 @@ class User(mongo.Document, UserMixin):
             setattr(self, k, v)
         if self.email == current_app.config['BLOG_ADMIN']:
             self.isAdmin = True
-            self.permission |= Permission.MODERATE_COMMENTS|Permission.ADMINISTER
+            self.permission |= Permission.MODERATE_COMMENTS | Permission.ADMINISTER
 
     @property
     def password(self):
