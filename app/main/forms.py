@@ -3,7 +3,7 @@ from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, RadioField
 from wtforms.validators import Required, Length, Email
 # from flask.ext.pagedown.fields import PageDownField
-from ..my_pagedown import PageDownField
+from ..my_pagedown.fields import PageDownField
 
 class PostForm(Form):
     title = StringField(u'标题', validators=[Required()])
