@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, abort, flash, request
 from flask.ext.login import login_user, current_user, login_required, logout_user
-from ..mongo_models import Permission, Post
+from ..models import Permission, Post
 from ..email import send_email
 from . import main
 from .. import db
