@@ -16,14 +16,14 @@ def index():
                     category=form.category.data,
                     status=int(form.status.data),
                     author=current_user._get_current_object(),
-                    tags=form.tags.split())
+                    tags=sorted(form.tags.split()))
         post.save()
         flash('Post success!')
         return redirect(url_for('.index'))
     if current_user.can(Permission.ADMINISTER):
         posts = Post.objects.order_by('-timestamp')
     else:
-        posts = Post.objects(status=1)
+        posts = Post.objects(status=1).order_by('-timestamp')
     for p in posts:
         p.id = str(p.id)
     return render_template('index.html', posts=posts, form=form, preview=True)
@@ -47,7 +47,7 @@ def edit(id):
         post.body = form.body.data
         post.category = form.category.data
         post.status = int(form.status.data)
-        post.tags = form.tags.data.split()
+        post.tags = sorted(form.tags.data.split())
         post.save()
         flash('The post has been updated.')
         return redirect(url_for('.post', id=post.id))
@@ -55,7 +55,7 @@ def edit(id):
     form.title.data = post.title
     form.category.data = post.category
     form.status.data = str(post.status)
-    form.tags.data = ' '.join(post.tags)
+    form.tags.data = ' '.join(sorted(post.tags))
     return render_template('edit_post.html', form=form)
 
 @main.route('/tags/<tag>')

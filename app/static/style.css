@@ -27,6 +27,7 @@ div.post-title {
 div.post-title-string {
     font-size: 24px;
     float: left;
+    padding-right: 10px;
 }
 div.post-title-tags {
     padding-top: 6px;
