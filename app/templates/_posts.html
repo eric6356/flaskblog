@@ -35,10 +35,15 @@
                 {% endif %}
             </div>
             <div class="post-footer">
+                {% if preview %}
+                    <a href="{{ url_for('.post', id=post.id) }}">
+                        <span class="label label-info">全文...</span>
+                    </a>
+                {% endif %}
                 {% if current_user.id == post.author.id %}
-                <a href="{{ url_for('.edit', id=post.id) }}">
-                    <span class="label label-primary">Edit</span>
-                </a>
+                    <a href="{{ url_for('.edit', id=post.id) }}">
+                        <span class="label label-primary">Edit</span>
+                    </a>
                 {% endif %}
             </div>
         </div>
