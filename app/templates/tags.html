@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Blog - Tags{% endblock %}
+
+{% block page_content %}
+
+{% with preview = True %}
+    {% include '_posts.html' %}
+{% endwith %}
+
+{% endblock %}

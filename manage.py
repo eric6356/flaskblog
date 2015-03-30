@@ -22,9 +22,6 @@ def test():
 
 @manager.command
 def deploy():
-    from flask.ext.migrate import upgrade
-
-    upgrade()
     User.init_user()
 
 if __name__ == '__main__':

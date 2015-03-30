@@ -15,7 +15,8 @@ def index():
                     body=form.body.data,
                     category=form.category.data,
                     status=int(form.status.data),
-                    author=current_user._get_current_object())
+                    author=current_user._get_current_object(),
+                    tags=form.tags.split())
         post.save()
         flash('Post success!')
         return redirect(url_for('.index'))
@@ -46,6 +47,7 @@ def edit(id):
         post.body = form.body.data
         post.category = form.category.data
         post.status = int(form.status.data)
+        post.tags = form.tags.data.split()
         post.save()
         flash('The post has been updated.')
         return redirect(url_for('.post', id=post.id))
@@ -53,7 +55,13 @@ def edit(id):
     form.title.data = post.title
     form.category.data = post.category
     form.status.data = str(post.status)
+    form.tags.data = ' '.join(post.tags)
     return render_template('edit_post.html', form=form)
+
+@main.route('/tags/<tag>')
+def tags(tag):
+    posts = Post.objects(tags=tag)
+    return render_template('tags.html', posts=posts)
 
 @main.route('/tech')
 def tech():

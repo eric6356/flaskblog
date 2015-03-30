@@ -43,7 +43,8 @@ class User(mongo.Document, UserMixin):
 
     @staticmethod
     def init_user():
-        u_admin = User(username='admin', email=current_app.config['BLOG_MAIL_SENDER'], password='admin')
+        u_admin = User(username='admin', email=current_app.config['BLOG_MAIL_SENDER'])
+        u_admin.password = 'admin'
         u_admin.save()
 
     def can(self, permissions):
@@ -64,6 +65,7 @@ def load_user(id):
     user = User.objects.with_id(id)
     return user
 
+
 class Post(mongo.Document):
     title = mongo.StringField()
     body = mongo.StringField()
@@ -71,6 +73,7 @@ class Post(mongo.Document):
     category = mongo.StringField()
     timestamp = mongo.DateTimeField(default=datetime.utcnow)
     author = mongo.ReferenceField(User)
+    tags = mongo.ListField(mongo.StringField())
 
     @property
     def body_html(self):
@@ -85,3 +88,4 @@ class Post(mongo.Document):
     def body_preview(self):
         res = bleach.clean(self.body_html, tags=[], strip=True)
         return res if len(res) < 200 else res[:200] + '...'
+

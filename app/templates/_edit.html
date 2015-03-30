@@ -14,6 +14,9 @@
             <label class="control-label" for="body">Status</label>
             {{ wtf.form_field(form.status) }}
         </div>
+        <div class="col-md-3">
+            {{ wtf.form_field(form.tags, placeholder='输入标签，以空格分隔') }}
+        </div>
         <div class="col-md-12">
         {{ wtf.form_field(form.submit) }}
         </div>
