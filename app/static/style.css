@@ -22,7 +22,7 @@ ul.posts li.post {
     border-bottom: 1px solid #e0e0e0;
 }
 div.post-title {
-    height: 36px;
+    min-height: 36px;
 }
 div.post-title-string {
     font-size: 24px;
