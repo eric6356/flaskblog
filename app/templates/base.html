@@ -6,7 +6,7 @@
 {{ super() }}
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="{{ url_for("static", filename='style.css') }}"
+<link rel="stylesheet" type="text/css" href="{{ url_for("static", filename='style.css') }}">
 {% endblock %}
 
 {% block navbar %}
@@ -70,34 +70,7 @@
         <div class="page-region col-md-9">
             {% block page_content %}{% endblock %}
         </div>
-
-        <div class="page-sidebar col-md-3">
-            <h3>Recent Posts</h3>
-            <ul>
-                <li>
-                    <a href="#">1</a>
-                </li>
-                <li>
-                    <a href="#">2</a>
-                </li>
-                <li>
-                    <a href="#">3</a>
-                </li>
-            </ul>
-            <h3>Hot Tags</h3>
-            <ul>
-                <li>
-                    <a href="#" class="nounderline label label-primary">Tag1</a>
-                </li>
-                <li>
-                    <a href="#" class="nounderline label label-primary">Tag2</a>
-                </li>
-                <li>
-                    <a href="#" class="nounderline label label-primary">Tag3</a>
-                </li>
-            </ul>
-        </div>
-
+    {% include "sidebar.html" %}
     </div>
 </div>
 {% endblock %}
@@ -106,4 +79,5 @@
 {{ super() }}
 {{ moment.include_moment() }}
 {{ moment.lang('zh-cn') }}
+<script type="text/javascript" src="{{ url_for("static", filename='get.js') }}"></script>
 {% endblock %}
