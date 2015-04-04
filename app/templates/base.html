@@ -62,8 +62,31 @@
         {{ message }}
     </div>
     {% endfor %}
+    <div class="page-with-sidebar">
+        <div class="page-content-head">
+            {% block page_content_head %}{% endblock %}
+        </div>
 
-    {% block page_content %}{% endblock %}
+        <div class="page-region col-md-9">
+            {% block page_content %}{% endblock %}
+        </div>
+
+        <div class="page-sidebar col-md-3">
+            <h3>Recent Post</h3>
+            <ul>
+                <li>
+                    <a href="#">1</a>
+                </li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">3</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
 </div>
 {% endblock %}
 
