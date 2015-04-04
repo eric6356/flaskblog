@@ -18,10 +18,10 @@ ul.posts {
 }
 ul.posts li.post {
     padding: 8px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid lightgray;
 }
 div.post-title {
-    min-height: 36px;
+    min-height: 40px;
 }
 div.post-title-string {
     font-size: 24px;
@@ -51,7 +51,7 @@ div.pagination {
 }
 div.flask-pagedown-preview {
     margin: 0px 0px 10px 0px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid lightgray;
     padding: 4px;
     min-height: 200px;
 }
@@ -128,4 +128,15 @@ div.flask-pagedown-preview h3 {
 .vg { color: #19177C } /* Name.Variable.Global */
 .vi { color: #19177C } /* Name.Variable.Instance */
 .il { color: #666666 } /* Literal.Number.Integer.Long */
-.nounderline:hover{text-decoration: none}
+.label {
+    height: 20px;
+    display: inline-block;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.label:hover {text-decoration: none}
+.label:active {text-decoration: none}
+.page-sidebar {
+    border-left: 1px solid lightgrey;
+    padding-bottom: 15px;
+}
