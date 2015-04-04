@@ -61,7 +61,7 @@ def edit(id):
 @main.route('/tags/<tag>')
 def tags(tag):
     posts = Post.objects(tags=tag)
-    return render_template('tags.html', posts=posts)
+    return render_template('tags.html', posts=posts, tag=tag)
 
 @main.route('/tech')
 def tech():
