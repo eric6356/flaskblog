@@ -80,9 +80,8 @@ class Post(mongo.Document):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
                         'h1', 'h2', 'h3', 'p', 'del', 'ins']
-        return bleach.clean(
-            markdown(self.body, ['del_ins'], output_format='html'),
-            tags=allowed_tags, strip=True)
+        allowed_attributes = ['span']
+        return markdown(self.body, ['del_ins', 'markdown.extensions.codehilite'], output_format='html')
 
     @property
     def body_preview(self):

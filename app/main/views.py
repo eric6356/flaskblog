@@ -16,7 +16,7 @@ def index():
                     category=form.category.data,
                     status=int(form.status.data),
                     author=current_user._get_current_object(),
-                    tags=sorted(form.tags.split()))
+                    tags=sorted(form.tags.data.split()))
         post.save()
         flash('Post success!')
         return redirect(url_for('.index'))
