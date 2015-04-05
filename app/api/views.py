@@ -20,7 +20,11 @@ def hot_tags():
 def recent_posts():
     n = int(request.args.get('n', 5))
     posts = Post.objects.only('title').order_by('-timestamp')[:n]
-    data = {}
+    data = []
     for post in posts:
-        data[str(post.id)] = post.title
-    return jsonify({'code': 200, 'data': data})
+        p = {'id': str(post.id), 'title': post.title}
+        data.append(p)
+
+    res = jsonify({'code': 200, 'data': data})
+    print res.data
+    return res

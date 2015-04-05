@@ -2,7 +2,6 @@
  * Created by Eric on 15/4/4.
  */
 $(document).ready(function () {
-    console.log('========');
     $.getJSON("/api/hot_tags", {"n": 5}, function(result){
         if (result['code']==200) {
             ul = document.getElementById('hot_tags');
@@ -22,8 +21,8 @@ $(document).ready(function () {
             ul = document.getElementById('recent_posts');
             $.each(result['data'], function (index, field) {
                 a = document.createElement('a');
-                a.href = '/post/' + index;
-                a.innerText = field;
+                a.href = '/post/' + field['id'];
+                a.innerText = field['title'];
                 li = document.createElement('li');
                 li.appendChild(a);
                 ul.appendChild(li);

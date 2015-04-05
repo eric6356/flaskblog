@@ -142,4 +142,5 @@ div.flask-pagedown-preview h3 {
 }
 .page-header {
     padding-left: 23px;
+    border-bottom: 1px solid lightgray;
 }
