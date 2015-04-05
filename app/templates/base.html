@@ -76,9 +76,9 @@
 {% endblock %}
 
 {% block scripts %}
-<script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"></script>
-<script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
-{{ moment.include_moment() }}
-{{ moment.lang('zh-cn') }}
-<script type="text/javascript" src="{{ url_for("static", filename='get.js') }}"></script>
+    <script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ url_for("static", filename='get.js') }}"></script>
+    {{ moment.include_moment() }}
+    {{ moment.lang('zh-cn') }}
 {% endblock %}
