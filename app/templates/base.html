@@ -62,6 +62,7 @@
         {{ message }}
     </div>
     {% endfor %}
+    {% block page_with_sidebar %}
     <div class="page-with-sidebar">
         <div class="page-content-head">
             {% block page_content_head %}{% endblock %}
@@ -71,6 +72,7 @@
             {% block page_content %}{% endblock %}
         </div>
     {% include "sidebar.html" %}
+    {% endblock %}
     </div>
 </div>
 {% endblock %}
