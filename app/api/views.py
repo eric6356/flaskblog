@@ -7,7 +7,7 @@ from . import api
 from .. import db
 from collections import Counter
 
-@api.route('/hot_tags', methods=("GET",))
+@api.route('/hot_tags.json', methods=("GET",))
 def hot_tags():
     n = int(request.args.get('n', 3))
     posts = Post.objects.only('tags')
@@ -16,7 +16,7 @@ def hot_tags():
     mc = c.most_common(n)
     return jsonify({'code': 200, 'data': mc})
 
-@api.route('/recent_posts', methods=("GET",))
+@api.route('/recent_posts.json', methods=("GET",))
 def recent_posts():
     n = int(request.args.get('n', 5))
     posts = Post.objects.only('title').order_by('-timestamp')[:n]
