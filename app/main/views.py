@@ -74,3 +74,6 @@ def life():
     posts = Post.objects(category='life').order_by('-timestamp')
     return render_template('life.html', posts=posts)
 
+@main.route('/upload', methods=("GET",))
+def upload():
+    return render_template('upload.html')

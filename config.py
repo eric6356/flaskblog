@@ -14,8 +14,8 @@ class Config:
     BLOG_MAIL_SUBJECT_PREFIX = '[Blog]'
     BLOG_MAIL_SENDER = MAIL_USERNAME + '@qq.com'
     BLOG_ADMIN = os.environ.get('BLOG_ADMIN')
-    UPLOAD_FOLDER = '/var/uploads'
-    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp'}
+    UPLOAD_FOLDER = '/home/flask/imgs'
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'bmp', 'gif'}
 
     @staticmethod
     def init_app(app):
