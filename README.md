@@ -15,4 +15,7 @@ git clone https://github.com/eric6356/flaskblog.git
 cd flaskblog
 pip install -r requirement.txt
 python manage.py deploy
+python runserver
 ```   
+
+然后即可用管理员邮箱及密码```admin```登陆
