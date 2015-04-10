@@ -81,7 +81,7 @@ class Post(mongo.Document):
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
                         'h1', 'h2', 'h3', 'p', 'del', 'ins']
         allowed_attributes = ['span']
-        return markdown(self.body, ['del_ins', 'markdown.extensions.codehilite'], output_format='html')
+        return markdown(self.body, ['del_ins', 'markdown.extensions.codehilite', 'markdown.extensions.attr_list'])
 
     @property
     def body_preview(self):

@@ -12,7 +12,7 @@ f = function() {
         flask_pagedown_converter = Markdown.getSanitizingConverter().makeHtml;
     var textarea = document.getElementById("flask-pagedown-%s");
     var preview = document.createElement('div');
-    preview.className = 'flask-pagedown-preview col-md-6';
+    preview.className = 'flask-pagedown-preview col-xs-6';
     textarea.style.cssText +=";overflow:hidden;";
     textarea.style.minHeight="200px";
     textarea.parentNode.parentNode.insertBefore(preview, textarea.parentNode.nextSibling);
@@ -66,6 +66,6 @@ window.onload=init();
 class PageDown(TextArea):
     def __call__(self, field, **kwargs):
         html = super(PageDown, self).__call__(field, id = 'flask-pagedown-' + field.name, class_ = 'flask-pagedown-input', **kwargs)
-        html = '<div class="col-md-6" id="pagedown-input-col">' + html + '</div>'
+        html = '<div class="col-xs-6" id="pagedown-input-col">' + html + '</div>'
         # print pagedown_pre_html + html + pagedown_post_html % field.name
         return HTMLString(pagedown_pre_html + html + pagedown_post_html % (field.name, field.name))
