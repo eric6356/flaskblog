@@ -1,14 +1,14 @@
 # coding: utf-8
 from flask import render_template, session, redirect, url_for, abort, flash, request, jsonify, current_app
 from flask.ext.login import login_user, current_user, login_required, logout_user
-from ..models import Permission, Post
-from ..email import send_email
+from ..models import Post, Comment, User
 from . import api
-from .. import db
 from collections import Counter
 from werkzeug import secure_filename
 import os
 import datetime
+import json
+import bleach
 
 @api.route('/hot_tags.json', methods=("GET",))
 def hot_tags():
@@ -49,3 +49,28 @@ def upload():
         url = url_for('static', filename='imgs/' + today.strftime('%y/%m/%d/') + filename)
         return jsonify({'code': 200, 'data': url})
     return jsonify({'code': 400, 'data': 'extension not allowed'})
+
+@api.route('/comment.json', methods=("POST",))
+def add_comment():
+    r = request.form.get('route')
+    r = json.loads(r)
+    post_id = request.form.get('post')
+    content = request.form.get('content')
+    author_id = request.form.get('author')
+    autor = User.objects.get_or_404(id=author_id)
+    content = bleach.clean(content, tags=[], strip=True)
+    comment = Comment(author=autor, content=content)
+
+    post = Post.objects.get_or_404(id=post_id)
+    commented = post
+    if r:
+        try:
+            for i in r:
+                commented = commented.comments[i]
+        except:
+            return jsonify({'code': 400, 'data': 'wrong route'})
+    commented.comments.append(comment)
+    return jsonify({'code': 200, 'data': 'ok'})
+
+
+

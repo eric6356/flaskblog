@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 import bleach
 from markdown import markdown
+import bson
 
 
 class Permission:
@@ -66,6 +67,12 @@ def load_user(id):
     return user
 
 
+class Comment(mongo.EmbeddedDocument):
+    content = mongo.StringField()
+    timestamp = mongo.DateTimeField(default=datetime.utcnow)
+    comments = mongo.ListField(mongo.EmbeddedDocumentField('self'))
+
+
 class Post(mongo.Document):
     title = mongo.StringField()
     body = mongo.StringField()
@@ -74,6 +81,7 @@ class Post(mongo.Document):
     timestamp = mongo.DateTimeField(default=datetime.utcnow)
     author = mongo.ReferenceField(User)
     tags = mongo.ListField(mongo.StringField())
+    comments = mongo.ListField(mongo.EmbeddedDocumentField(Comment))
 
     @property
     def body_html(self):
