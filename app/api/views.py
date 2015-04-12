@@ -76,10 +76,11 @@ def comment():
 
     if request.method == 'POST':
         content = request.form.get('content')
-        author_email = request.form.get('author', 'anonymous@hezj.xyz')
-        autor = User.objects.get_or_404(email=author_email)
+        author_email = request.form.get('author')
+        if not author_email: author_email = 'anonymous@hezj.xyz'
+        author = User.objects.get_or_404(email=author_email)
         content = bleach.clean(content, tags=[], strip=True)
-        comment = Comment(author=autor, content=content)
+        comment = Comment(author=author, content=content)
 
         commented.comments.append(comment)
 
