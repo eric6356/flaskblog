@@ -50,27 +50,45 @@ def upload():
         return jsonify({'code': 200, 'data': url})
     return jsonify({'code': 400, 'data': 'extension not allowed'})
 
-@api.route('/comment.json', methods=("POST",))
-def add_comment():
-    r = request.form.get('route')
-    r = json.loads(r)
+@api.route('/comment.json', methods=("POST", "PUT"))
+def comment():
     post_id = request.form.get('post')
-    content = request.form.get('content')
-    author_id = request.form.get('author')
-    autor = User.objects.get_or_404(id=author_id)
-    content = bleach.clean(content, tags=[], strip=True)
-    comment = Comment(author=autor, content=content)
-
     post = Post.objects.get_or_404(id=post_id)
-    commented = post
-    if r:
-        try:
-            for i in r:
-                commented = commented.comments[i]
-        except:
-            return jsonify({'code': 400, 'data': 'wrong route'})
-    commented.comments.append(comment)
+    commented_id = request.form.get('commented')
+
+    def find_commented(node):
+        if str(node.id) == commented_id:
+            return node
+        for c in node.comments:
+            res = find_commented(c)
+            if res:
+                return res
+
+    if commented_id == post_id:
+        if request.method == 'POST':
+            commented = post
+        elif request.method == 'PUT':
+            abort(400)
+    else:
+        commented = find_commented(post)
+        if not commented:
+            return jsonify({'code': 400, 'data': 'cannot find commented'})
+
+    if request.method == 'POST':
+        content = request.form.get('content')
+        author_email = request.form.get('author', 'anonymous@hezj.xyz')
+        autor = User.objects.get_or_404(email=author_email)
+        content = bleach.clean(content, tags=[], strip=True)
+        comment = Comment(author=autor, content=content)
+
+        commented.comments.append(comment)
+
+    elif request.method == 'PUT':
+        commented.content = u'This comment has been deleted...'
+
+    post.save()
     return jsonify({'code': 200, 'data': 'ok'})
 
 
+import flask_moment
 

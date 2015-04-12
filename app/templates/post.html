@@ -5,3 +5,8 @@
 {% block page_content %}
 {% include '_posts.html' %}
 {% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for("static", filename='comment.js') }}"></script>
+{% endblock %}

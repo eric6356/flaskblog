@@ -68,9 +68,15 @@ def load_user(id):
 
 
 class Comment(mongo.EmbeddedDocument):
+    id = mongo.ObjectIdField(default=bson.ObjectId)
+    author = mongo.ReferenceField(User)
     content = mongo.StringField()
     timestamp = mongo.DateTimeField(default=datetime.utcnow)
     comments = mongo.ListField(mongo.EmbeddedDocumentField('self'))
+
+    def __repr__(self):
+        res = u'<Comment: ' + self.content + u'>'
+        return repr(res).encode('utf-8')
 
 
 class Post(mongo.Document):
@@ -82,6 +88,10 @@ class Post(mongo.Document):
     author = mongo.ReferenceField(User)
     tags = mongo.ListField(mongo.StringField())
     comments = mongo.ListField(mongo.EmbeddedDocumentField(Comment))
+
+    def __repr__(self):
+        res = u'<Post: ' + self.title + u'>'
+        return repr(res).decode('utf-8')
 
     @property
     def body_html(self):

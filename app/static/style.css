@@ -34,11 +34,29 @@ div.post-title-tags {
 div.post-author {
     font-weight: bold;
 }
-div.post-thumbnail {
-    position: absolute;
+div.post-date {
+    color: darkgray;
+}
+div.post-comment-date {
+    color: darkgray;
+    font-size: 8px;
 }
 div.post-content {
     min-height: 48px;
+}
+div.post-comment {
+    margin-top: 2px;
+    border-top: 1px solid lightgray;
+}
+div.post-comment-string {
+    font-size: 18px;
+}
+div.post-sub-comment {
+    padding-left: 30px;
+    /*border-left: 1px solid lightgray;*/
+    /*border-bottom: 1px solid lightgray;*/
+    /*border-left: 1px solid lightgray;*/
+    /*border-right: 1px solid lightgray;*/
 }
 div.post-footer {
     text-align: right;
@@ -143,4 +161,7 @@ div.flask-pagedown-preview h3 {
 .page-header {
     padding-left: 23px;
     border-bottom: 1px solid lightgray;
+}
+.post-comment-form-btn-container {
+    text-align: right;
 }
