@@ -11,4 +11,15 @@
     {{ wtf.quick_form(form) }}
     <br>
 </div>
+<div class="col-xs-4">
+    <form method="post" class="form">
+        {{ form.csrf_token }}
+        <label class="control-label" for="email">Guest Login</label>
+        <input class="form-control" id="email" name="email" value="guest@hezj.xyz" readonly="readonly">
+        <input class="form-control" id="password" name="password" type="hidden" value="guest">
+        {{ wtf.form_field(form.remember_me) }}
+        {{ wtf.form_field(form.submit) }}
+    </form>
+
+</div>
 {% endblock %}

@@ -58,7 +58,7 @@
                        <div class="post-comment-date">
                            {{ moment(comment.timestamp).format('YYYY-MM-DD HH:MM, ') }}
                            {{ moment(comment.timestamp).fromNow(refresh=True) }}
-                           <a href="#nogo"><span class="label label-info" onclick="show_comment(this)">Comment</span></a>
+                           <a href="#nogo"><span class="label label-info" onclick="show_comment(this)">Reply</span></a>
                            {% if current_user.id ==  comment.author.id or current_user.isAdmin%}
                            <a href="#nogo"><span class="label label-warning" onclick="delete_comment(this, '{{ post.id }}', '{{ comment.id }}')">Delete</span></a>
                            {% endif %}
